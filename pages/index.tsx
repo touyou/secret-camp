@@ -126,9 +126,13 @@ const LeftButton = styled.button`
   border-style: none;
   background-color: rgba(0, 0, 0, 0);
 
-  &:hover {
+  &:active {
     background-color: rgba(0, 0, 0, 0.2);
     transition: 0.2s ease;
+  }
+
+  &:focus {
+    outline: none;
   }
 `;
 
@@ -142,9 +146,13 @@ const RightButton = styled.button`
   border-style: none;
   background-color: rgba(0, 0, 0, 0);
 
-  &:hover {
+  &:active {
     background-color: rgba(0, 0, 0, 0.2);
     transition: 0.2s ease;
+  }
+
+  &:focus {
+    outline: none;
   }
 `;
 
