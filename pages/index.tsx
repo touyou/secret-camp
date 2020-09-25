@@ -99,7 +99,6 @@ const Index = () => {
 };
 
 const Container = styled.div`
-  z-index: 0;
   margin: 0;
   padding: 0;
   width: 100%;
