@@ -75,13 +75,23 @@ const Index = () => {
   return (
     <>
       <Container>
-        <LeftButton onClick={backIndex} />
+        <LeftButton
+          onClick={() => {
+            backIndex();
+            setTime(0);
+          }}
+        />
         <Image
           src={mediaItems[currentIndex] + selectSize()}
           width={size ? `${size.width}px` : "100%"}
           height={size ? `${size.height}px` : "100%"}
         />
-        <RightButton onClick={nextIndex} />
+        <RightButton
+          onClick={() => {
+            nextIndex();
+            setTime(0);
+          }}
+        />
         <Line
           percent={currentValue()}
           strokeColor="rgba(250, 250, 250, 0.7)"
