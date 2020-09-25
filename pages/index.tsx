@@ -67,7 +67,9 @@ const Index = () => {
       />
       <Container>
         <LeftButton onClick={backIndex} />
-        <Image src={mediaItems[currentIndex] + (size ? `=w${size}` : "")} />
+        <Image
+          src={mediaItems[currentIndex] + (size ? `=w${size.width}` : "")}
+        />
         <RightButton onClick={nextIndex} />
       </Container>
     </>
