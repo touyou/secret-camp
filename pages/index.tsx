@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Index = () => {
   const [currentIndex, setIndex] = useState(0);
