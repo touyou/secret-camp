@@ -144,6 +144,10 @@ type ImageProps = {
 };
 
 const Image = styled.img<ImageProps>`
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   object-fit: cover;
