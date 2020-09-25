@@ -60,12 +60,23 @@ const Index = () => {
     );
   };
 
+  const selectSize = () => {
+    if (size) {
+      if (size.width > size.height) {
+        return `=w${size.width}`;
+      } else {
+        return `=h${size.height}`;
+      }
+    }
+    return "";
+  };
+
   return (
     <>
       <Container>
         <LeftButton onClick={backIndex} />
         <Image
-          src={mediaItems[currentIndex] + (size ? `=w${size.width}` : "")}
+          src={mediaItems[currentIndex] + selectSize()}
           width={size ? `${size.width}px` : "100%"}
           height={size ? `${size.height}px` : "100%"}
         />
