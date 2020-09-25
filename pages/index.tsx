@@ -25,16 +25,17 @@ const Index = () => {
 
   let time = 0;
   let delay = 1000;
+  let interval = 5;
 
   const update = () => {
     time++;
-    if (time == 10) {
+    if (time == interval) {
       time = 0;
       nextIndex();
     }
   };
 
-  // useInterval(update, delay);
+  useInterval(update, delay);
 
   const backIndex = () => {
     if (currentIndex > 0) {
@@ -54,38 +55,43 @@ const Index = () => {
 
   const currentValue = () => {
     return (
-      ((10 * currentIndex + time) * 100) / Math.max(10 * mediaItems.length, 1)
+      ((interval * currentIndex + time) * 100) /
+      Math.max(interval * mediaItems.length, 1)
     );
   };
 
   return (
     <>
-      <HoverContainer>
-        <Line
-          percent={currentValue()}
-          strokeColor="#eeeeee"
-          style={{ margin: "4px" }}
-        />
-      </HoverContainer>
       <Container>
         <LeftButton onClick={backIndex} />
         <Image
           src={mediaItems[currentIndex] + (size ? `=w${size.width}` : "")}
+          width={size ? `${size.width}px` : "100%"}
+          height={size ? `${size.height}px` : "100%"}
         />
         <RightButton onClick={nextIndex} />
+        <Line
+          percent={currentValue()}
+          strokeColor="#eeeeee"
+          trailColor="rgba(0, 0, 0, 0.2)"
+          style={{
+            position: "absolute",
+            top: 4,
+            marginLeft: "4px",
+            marginRight: "4px",
+          }}
+        />
       </Container>
     </>
   );
 };
 
 const Container = styled.div`
+  z-index: 0;
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-`;
-const HoverContainer = styled.div`
-  z-index: 20;
 `;
 
 const LeftButton = styled.button`
@@ -120,9 +126,15 @@ const RightButton = styled.button`
   }
 `;
 
-const Image = styled.img`
-  height: auto;
-  width: 100%;
+type ImageProps = {
+  width: string;
+  height: string;
+};
+
+const Image = styled.img<ImageProps>`
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
+  object-fit: cover;
 `;
 
 export default Index;
