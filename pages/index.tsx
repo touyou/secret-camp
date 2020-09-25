@@ -79,6 +79,7 @@ const Index = () => {
             top: 4,
             marginLeft: "4px",
             marginRight: "4px",
+            width: size ? `${size.width - 8}px` : "100%",
           }}
         />
       </Container>
