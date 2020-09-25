@@ -60,11 +60,13 @@ const Index = () => {
 
   return (
     <>
-      <Line
-        percent={currentValue()}
-        strokeColor="#eeeeee"
-        style={{ margin: "4px" }}
-      />
+      <HoverContainer>
+        <Line
+          percent={currentValue()}
+          strokeColor="#eeeeee"
+          style={{ margin: "4px" }}
+        />
+      </HoverContainer>
       <Container>
         <LeftButton onClick={backIndex} />
         <Image
@@ -82,12 +84,8 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 `;
-
-const Progress = styled.progress`
-  margin-top: 4px;
-  z-index: 5;
-  width: 100%;
-  color: #eeeeee;
+const HoverContainer = styled.div`
+  z-index: 20;
 `;
 
 const LeftButton = styled.button`
