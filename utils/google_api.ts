@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getAlbum = async (id: string, width: number) => {
   const response = await axios.get(
-    `https://secret-camp.vercel.app/${id}=w${width}`
+    `https://secret-camp.vercel.app/api/${id}=w${width}`
   );
   return response.data;
 };
