@@ -1,14 +1,11 @@
 import axios from "axios";
 
-export const getAlbum = async (id: string, width: number) => {
-  const response = await axios.get(
-    `https://secret-camp.vercel.app/api/${id}=w${width}`
-  );
+export const getAlbum = async (id: string) => {
+  const response = await axios.get(`https://secret-camp.vercel.app/api/${id}`);
   return response.data;
 };
 
-export const getSecretCampAlbum = async (width: number) =>
-  getAlbum("EvreQhisHEh3fCUp8", width);
+export const getSecretCampAlbum = async () => getAlbum("EvreQhisHEh3fCUp8");
 
 const regex = /\["(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/g;
 

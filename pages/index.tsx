@@ -11,9 +11,9 @@ const Index = () => {
 
   useEffect(() => {
     let shouldCancel = false;
-    console.log('use size effect');
+    console.log("use size effect");
     const call = async () => {
-      const data = await getSecretCampAlbum(size.width);
+      const data = await getSecretCampAlbum();
       console.log(data);
       if (!shouldCancel && data) {
         setMediaItems(data);
@@ -67,7 +67,7 @@ const Index = () => {
       />
       <Container>
         <LeftButton onClick={backIndex} />
-        <Image src={mediaItems[currentIndex]} />
+        <Image src={mediaItems[currentIndex] + (size ? `=w${size}` : "")} />
         <RightButton onClick={nextIndex} />
       </Container>
     </>
