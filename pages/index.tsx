@@ -7,6 +7,7 @@ import { Line } from "rc-progress";
 const Index = () => {
   const [currentIndex, setIndex] = useState(0);
   const [mediaItems, setMediaItems] = useState([]);
+  const [time, setTime] = useState(0);
   const size = useWindowSize();
 
   useEffect(() => {
@@ -23,15 +24,15 @@ const Index = () => {
     return () => (shouldCancel = true);
   }, [size]);
 
-  let time = 0;
   let delay = 1000;
   let interval = 5;
 
   const update = () => {
-    time++;
-    if (time == interval) {
-      time = 0;
+    if (time + 1 == interval) {
+      setTime(0);
       nextIndex();
+    } else {
+      setTime(time + 1);
     }
   };
 
@@ -83,7 +84,7 @@ const Index = () => {
         <RightButton onClick={nextIndex} />
         <Line
           percent={currentValue()}
-          strokeColor="#eeeeee"
+          strokeColor="rgba(250, 250, 250, 0.7)"
           trailColor="rgba(0, 0, 0, 0.2)"
           style={{
             position: "absolute",
