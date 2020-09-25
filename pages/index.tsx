@@ -11,16 +11,17 @@ const Index = () => {
 
   useEffect(() => {
     let shouldCancel = false;
+    console.log('use size effect');
     const call = async () => {
       const data = await getSecretCampAlbum(size.width);
-
+      console.log(data);
       if (!shouldCancel && data) {
         setMediaItems(data);
       }
     };
     call();
     return () => (shouldCancel = true);
-  }, []);
+  }, [size]);
 
   let time = 0;
   let delay = 1000;
@@ -33,7 +34,7 @@ const Index = () => {
     }
   };
 
-  useInterval(update, delay);
+  // useInterval(update, delay);
 
   const backIndex = () => {
     if (currentIndex > 0) {

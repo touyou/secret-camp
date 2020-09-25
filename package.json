@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "express": "^4.17.1",
     "next": "^9.5.3",
     "rc-progress": "^3.1.0",
     "react": "^16.13.1",
