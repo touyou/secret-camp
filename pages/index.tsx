@@ -1,64 +1,120 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getSecretCampAlbum } from "../utils/google_api";
+import { useInterval, useWindowSize } from "../utils/customHook";
 
 const Index = () => {
   const [currentIndex, setIndex] = useState(0);
-  const mediaArray = ["test", "test2", "test3", "test4"];
+  const [mediaItems, setMediaItems] = useState([]);
+  const size = useWindowSize();
 
   useEffect(() => {
     let shouldCancel = false;
     const call = async () => {
-      const data = await getSecretCampAlbum();
+      const data = await getSecretCampAlbum(size.width);
 
       if (!shouldCancel && data) {
-        console.log(data);
+        setMediaItems(data);
       }
     };
     call();
     return () => (shouldCancel = true);
   }, []);
 
+  let time = 0;
+  let delay = 1000;
+
+  const update = () => {
+    time++;
+    if (time == 10) {
+      time = 0;
+      nextIndex();
+    }
+  };
+
+  useInterval(update, delay);
+
   const backIndex = () => {
     if (currentIndex > 0) {
       setIndex(currentIndex - 1);
     } else {
-      setIndex(Math.max(mediaArray.length - 1, 0));
+      setIndex(Math.max(mediaItems.length - 1, 0));
     }
   };
 
   const nextIndex = () => {
-    if (currentIndex < mediaArray.length - 1) {
+    if (currentIndex < mediaItems.length - 1) {
       setIndex(currentIndex + 1);
     } else {
       setIndex(0);
     }
   };
 
+  const currentValue = () => {
+    return 10 * currentIndex + time;
+  };
+
   return (
     <>
-      <Header>
-        <h1>SecretCamp 2020 Story</h1>
-      </Header>
+      <Progress value={currentValue()} max={10 * mediaItems.length} />
       <Container>
-        <button onClick={backIndex}>Back</button>
-        <p>{mediaArray[currentIndex]}</p>
-        <button onClick={nextIndex}>Next</button>
+        <LeftButton onClick={backIndex} />
+        <Image src={mediaItems[currentIndex]} />
+        <RightButton onClick={nextIndex} />
       </Container>
     </>
   );
 };
 
-const Header = styled.header`
+const Container = styled.div`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+`;
+
+const Progress = styled.progress`
+  margin-top: 4px;
+  z-index: 5;
+  width: 100%;
+  color: #eeeeee;
+`;
+
+const LeftButton = styled.button`
   position: absolute;
   top: 0;
   left: 0;
-  height: 56px;
-  width: 100%;
+  z-index: 10;
+  height: 100%;
+  width: 40px;
+  border-style: none;
+  background-color: rgba(0, 0, 0, 0);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: 0.2s ease;
+  }
 `;
 
-const Container = styled.div`
-  margin-top: 56px;
+const RightButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  height: 100%;
+  width: 40px;
+  border-style: none;
+  background-color: rgba(0, 0, 0, 0);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: 0.2s ease;
+  }
+`;
+
+const Image = styled.img`
+  height: auto;
+  width: 100%;
 `;
 
 export default Index;
