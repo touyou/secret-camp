@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getSecretCampAlbum } from "../utils/google_api";
 import { useInterval, useWindowSize } from "../utils/customHook";
+import { Line } from "rc-progress";
 
 const Index = () => {
   const [currentIndex, setIndex] = useState(0);
@@ -51,12 +52,18 @@ const Index = () => {
   };
 
   const currentValue = () => {
-    return 10 * currentIndex + time;
+    return (
+      ((10 * currentIndex + time) * 100) / Math.max(10 * mediaItems.length, 1)
+    );
   };
 
   return (
     <>
-      <Progress value={currentValue()} max={10 * mediaItems.length} />
+      <Line
+        percent={currentValue()}
+        strokeColor="#eeeeee"
+        style={{ margin: "4px" }}
+      />
       <Container>
         <LeftButton onClick={backIndex} />
         <Image src={mediaItems[currentIndex]} />
